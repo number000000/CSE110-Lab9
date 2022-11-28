@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
-
   <style>
     button {
       margin: 3px;
@@ -55,7 +54,7 @@
       <fieldset>
         <legend>Error Calculator</legend>
         <input name="first-num" id="first-num" />
-        <select name="operator" id="operator">
+        <!--select name="operator" id="operator">-->
           <option>+</option>
           <option>-</option>
           <option>*</option>
@@ -88,20 +87,148 @@
   </main>
 
   <script>
+    class InputError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "ValidationError";
+      }
+    }
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
-      e.preventDefault();
-      let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
-      let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try{
+        e.preventDefault();
+        let output = document.querySelector('output');
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        if(isNaN(firstNum) || isNaN(secondNum)){
+          throw new InputError("input is not a number");
+        }
+        let operator = document.querySelector('#operator').value;
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }catch(err){
+        if(err instanceof InputError)
+          console.error("invalid input: " + err.message);
+        else 
+          console.error(err);
+      }finally{
+        alert("The calculator is not working properly. Please contact admin.");
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+    //console.log
+    let cLog = errorBtns[0];
+    cLog.addEventListener('click', (event) => {
+      console.log("Console Log cliked");
+    });
+
+    //console.error
+    let cError = errorBtns[1];
+    cError.addEventListener('click', (event) => {
+      console.error(cError);
+    })
+
+    //console.count
+    let cCnt = errorBtns[2];
+    cCnt.addEventListener('click', (event) => {
+      console.count();
+    })
+
+    //console.warn
+    let cWarn = errorBtns[3];
+    cWarn.addEventListener('click', (event) => {
+      console.warn("warning!");
+    })
+
+    //console.assert
+    let cAssert = errorBtns[4];
+    cAssert.addEventListener('click', (event) => {
+      const one = 1;
+      const zero = 0;
+      const reason = 'one can never equals to zero';
+      console.assert(one == zero, {one, zero, reason});
+    })
+
+    //console.clear
+    let cClear = errorBtns[5];
+    cClear.addEventListener('click', (event) => {
+      console.clear();
+    })
+
+    //console.dir
+    let cDir = errorBtns[6];
+    cDir.addEventListener('click', (event) => {
+      console.dir(cDir);
+    })
+
+    //console.dirxml
+    let cDirxml = errorBtns[7];
+    cDirxml.addEventListener('click', (event) => {
+      console.dirxml(document.body);
+    })
+
+    //Console Group Start
+    let cGroupS = errorBtns[8];
+    cGroupS.addEventListener('click', (event) => {
+      const label = 'Group';
+      console.group(label);
+    })
+
+    //Console Group End
+    let cGroupE = errorBtns[9];
+    cGroupE.addEventListener('click', (event) => {
+      const label = 'Group';
+      console.groupEnd(label);
+    })
+
+    //console.table
+    let cTable = errorBtns[10];
+    cTable.addEventListener('click', (event) => {
+      let output = document.querySelector('output');
+      let firstNum = document.querySelector('#first-num');
+      let secondNum = document.querySelector('#second-num');
+      let operator = document.querySelector('#operator');
+      var calculator = [output, firstNum, secondNum, operator];
+      console.table(calculator);
+    })
+
+    //Start Timer
+    let cTimeS = errorBtns[11];
+    cTimeS.addEventListener('click', (event) => {
+      console.time();
+    })
+
+    //End Timer
+    let cTimeE = errorBtns[12];
+    cTimeE.addEventListener('click', (event) => {
+      console.timeEnd();
+    })
+
+    //console.trace
+    let cTrace = errorBtns[13];
+    cTrace.addEventListener('click', (event) => {
+      stack1();
+    })
+    function stack1(){
+      stack2();
+    }
+    function stack2(){
+      stack3();
+    }
+    function stack3(){
+      console.trace();
+    }
+
+    //Trigger a Global Error
+    let cGlobalE = errorBtns[14];
+    cGlobalE.addEventListener('click', function globalError() {
+      boom;
+    })
+
   </script>
 </body>
 
