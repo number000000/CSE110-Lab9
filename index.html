@@ -86,6 +86,15 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "2560143ccd4740bf8b8931286f1c852c"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+    //TrackJS.track('Testing TrackJS!');         //only for test
+  </script>
+                        
   <script>
     class InputError extends Error {
       constructor(message) {
@@ -117,9 +126,7 @@
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
-
-    // Start your code here
-    // You may move this JS to another file if you wish
+    
     //console.log
     let cLog = errorBtns[0];
     cLog.addEventListener('click', (event) => {
@@ -229,6 +236,7 @@
       boom;
     })
 
+    //handling global error
     window.onerror = function(message, url, linenumber) {
 	    console.log('JavaScript error: ' + message + ' on line ' + linenumber + ' for ' + url);
     }
