@@ -112,7 +112,7 @@
         else 
           console.error(err);
       }finally{
-        alert("The calculator is not working properly. Please contact admin.");
+        alert("The calculator is not working properly.");
       }
     });
 
@@ -229,6 +229,9 @@
       boom;
     })
 
+    window.onerror = function(message, url, linenumber) {
+	    console.log('JavaScript error: ' + message + ' on line ' + linenumber + ' for ' + url);
+    }
   </script>
 </body>
 
